@@ -4,6 +4,7 @@ import com.ericlam.mc.config.ConfigManager;
 import com.ericlam.mc.config.Rewards;
 import com.ericlam.mc.main.KillRewards;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -42,8 +43,8 @@ public class OnDeath implements Listener {
             for (double rand : doubles) {
                 if (pert > rand) continue;
                 Rewards rewards = keys.get(rand);
-                victim.sendMessage(rewards.getVictimmsg().replace("<killer>",killer.getName()).replace("<victim>",victim.getName()));
-                killer.sendMessage(rewards.getKillermsg().replace("<killer>",killer.getName()).replace("<victim>",victim.getName()));
+                victim.sendMessage(ChatColor.translateAlternateColorCodes('&', rewards.getVictimmsg().replace("<killer>", killer.getName()).replace("<victim>", victim.getName())));
+                killer.sendMessage(ChatColor.translateAlternateColorCodes('&', rewards.getKillermsg().replace("<killer>", killer.getName()).replace("<victim>", victim.getName())));
                 rewards.getKillercmd().forEach(cmd->Bukkit.dispatchCommand(plugin.getServer().getConsoleSender(),cmd.replace("<killer>",killer.getName()).replace("<victim>",victim.getName())));
                 rewards.getVictimcmd().forEach(cmd->Bukkit.dispatchCommand(plugin.getServer().getConsoleSender(),cmd.replace("<killer>",killer.getName()).replace("<victim>",victim.getName())));
                 selected = true;
