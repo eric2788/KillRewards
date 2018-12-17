@@ -1,0 +1,14 @@
+50.0:
+  killer:
+    - say  KILL// <killer> killed <victim> got rewards!
+  victim:
+    - say VICTIM// <victim> killed by <killer> !
+  killer-message: "gotcha bitch <killer> killer !!"
+  victim-message: "gotcha bitch <victim> victim!!"
+100.0:
+  killer:
+    - say  KILL// <killer> killed <victim> got rewards22222!
+  victim:
+    - say VICTIM// <victim> killed by <killer> 2222222!
+  killer-msg: "gotcha bitch <killer> killer 22222222!!"
+  victim-msg: "gotcha bitch <victim> victim 22222222!!"

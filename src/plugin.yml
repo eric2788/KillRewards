@@ -1,0 +1,6 @@
+name: KillRewards
+main: com.ericlam.mc.main.KillRewards
+version: 1.0
+commands:
+  resetdata:
+    description: reset player data
