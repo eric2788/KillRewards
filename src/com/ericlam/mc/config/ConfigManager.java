@@ -110,5 +110,14 @@ public class ConfigManager {
     public void reloadData(){
         rewards = YamlConfiguration.loadConfiguration(rewardFile);
         config = YamlConfiguration.loadConfiguration(configFile);
+        keyMap.clear();
+        for (String key : rewards.getKeys(false)){
+            double dkey = Double.parseDouble(key.replace("X","."));
+            List<String> killercmd = rewards.getStringList(key+".killer");
+            List<String> victimcmd = rewards.getStringList(key+".victim");
+            String killermsg = rewards.getString(key+".killer-msg");
+            String victimmsg = rewards.getString(key+".victim-msg");
+            keyMap.put(dkey,new Rewards(killercmd,victimcmd,killermsg,victimmsg));
+        }
     }
 }
