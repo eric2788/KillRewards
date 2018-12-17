@@ -45,8 +45,20 @@ public class KillRewards extends JavaPlugin {
                 e.printStackTrace();
                 return false;
             }
-            return true;
         }
-        return false;
+        if (command.getName().equalsIgnoreCase("reloaddata")){
+            if (!sender.hasPermission("group.admin")){
+                sender.sendMessage("§c你沒有權限");
+                return false;
+            }
+            try {
+                ConfigManager.getInstance().reloadData();
+                sender.sendMessage("§a重載成功");
+            } catch (IOException e) {
+                e.printStackTrace();
+                return false;
+            }
+        }
+        return true;
     }
 }

@@ -1,11 +1,13 @@
-50.0:
+# X = .    使用X代替小數點
+# 50X0 -> 50.5
+50X0:
   killer:
     - say  KILL// <killer> killed <victim> got rewards!
   victim:
     - say VICTIM// <victim> killed by <killer> !
-  killer-message: "gotcha bitch <killer> killer !!"
-  victim-message: "gotcha bitch <victim> victim!!"
-100.0:
+  killer-msg: "gotcha bitch <killer> killer !!"
+  victim-msg: "gotcha bitch <victim> victim!!"
+100X0:
   killer:
     - say  KILL// <killer> killed <victim> got rewards22222!
   victim:

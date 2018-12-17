@@ -1,6 +1,7 @@
 name: KillRewards
 main: com.ericlam.mc.main.KillRewards
 version: 1.0
+author: Hydranapse_
 commands:
   resetdata:
     description: reset player data

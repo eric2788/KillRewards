@@ -14,6 +14,9 @@ import java.util.UUID;
 
 public class ConfigManager {
     private FileConfiguration config;
+    private FileConfiguration rewards;
+    private File rewardFile;
+    private File configFile;
     private static ConfigManager configManager;
     private File folder;
     private Plugin plugin;
@@ -29,8 +32,8 @@ public class ConfigManager {
     private ConfigManager() throws IOException {
         plugin = KillRewards.plugin;
 
-        File rewardFile = new File(plugin.getDataFolder(), "rewards.yml");
-        File configFile = new File(plugin.getDataFolder(),"config.yml");
+        rewardFile = new File(plugin.getDataFolder(), "rewards.yml");
+        configFile = new File(plugin.getDataFolder(),"config.yml");
         folder = new File(plugin.getDataFolder(), "PlayerData");
 
         if (!folder.exists()) FileUtils.forceMkdir(folder);
@@ -38,11 +41,11 @@ public class ConfigManager {
         if (!configFile.exists()) plugin.saveResource("config.yml",true);
 
 
-        FileConfiguration rewards = YamlConfiguration.loadConfiguration(rewardFile);
+        rewards = YamlConfiguration.loadConfiguration(rewardFile);
         config = YamlConfiguration.loadConfiguration(configFile);
 
         for (String key : rewards.getKeys(false)){
-            double dkey = Double.parseDouble(key);
+            double dkey = Double.parseDouble(key.replace("X","."));
             List<String> killercmd = rewards.getStringList(key+".killer");
             List<String> victimcmd = rewards.getStringList(key+".victim");
             String killermsg = rewards.getString(key+".killer-msg");
@@ -64,6 +67,7 @@ public class ConfigManager {
                 data = YamlConfiguration.loadConfiguration(playerdata);
                 data.set("max-uses",maxuse);
                 data.save(playerdata);
+                YamlConfiguration.loadConfiguration(playerdata);
             }
             playerUse.put(uuid,maxuse);
         }
@@ -77,6 +81,7 @@ public class ConfigManager {
             FileConfiguration data = YamlConfiguration.loadConfiguration(playerdata);
             data.set("max-uses",uses);
             data.save(playerdata);
+            YamlConfiguration.loadConfiguration(playerdata);
         }
     }
 
@@ -98,10 +103,12 @@ public class ConfigManager {
             FileConfiguration data = YamlConfiguration.loadConfiguration(playerdata);
             data.set("max-uses",maxuse);
             data.save(playerdata);
+            YamlConfiguration.loadConfiguration(playerdata);
         }
     }
 
-    public HashMap<UUID, Integer> getPlayerUse() {
-        return playerUse;
+    public void reloadData(){
+        rewards = YamlConfiguration.loadConfiguration(rewardFile);
+        config = YamlConfiguration.loadConfiguration(configFile);
     }
 }
