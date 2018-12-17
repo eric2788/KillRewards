@@ -43,8 +43,10 @@ public class OnDeath implements Listener {
             for (double rand : doubles) {
                 if (pert > rand) continue;
                 Rewards rewards = keys.get(rand);
-                victim.sendMessage(ChatColor.translateAlternateColorCodes('&', rewards.getVictimmsg().replace("<killer>", killer.getName()).replace("<victim>", victim.getName())));
-                killer.sendMessage(ChatColor.translateAlternateColorCodes('&', rewards.getKillermsg().replace("<killer>", killer.getName()).replace("<victim>", victim.getName())));
+                if (rewards.isVictimMSG())
+                    victim.sendMessage(ChatColor.translateAlternateColorCodes('&', rewards.getVictimmsg().replace("<killer>", killer.getName()).replace("<victim>", victim.getName())));
+                if (rewards.isKillerMSG())
+                    killer.sendMessage(ChatColor.translateAlternateColorCodes('&', rewards.getKillermsg().replace("<killer>", killer.getName()).replace("<victim>", victim.getName())));
                 rewards.getKillercmd().forEach(cmd->Bukkit.dispatchCommand(plugin.getServer().getConsoleSender(),cmd.replace("<killer>",killer.getName()).replace("<victim>",victim.getName())));
                 rewards.getVictimcmd().forEach(cmd->Bukkit.dispatchCommand(plugin.getServer().getConsoleSender(),cmd.replace("<killer>",killer.getName()).replace("<victim>",victim.getName())));
                 selected = true;

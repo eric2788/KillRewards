@@ -3,7 +3,9 @@ main: com.ericlam.mc.main.KillRewards
 version: 1.0
 author: Hydranapse_
 commands:
-  resetdata:
-    description: reset player data
-  reloaddata:
-    description: reload config
+  killrewards:
+    aliases: [kw,krw]
+    description: kill rewards command
+permissions:
+  kw.admin:
+    description: admin permission
