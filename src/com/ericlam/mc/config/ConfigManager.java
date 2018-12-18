@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.UUID;
 
 public class ConfigManager {
-    public static String success, zero, check, notfound, checkother, noperm, unknown, reload, reset, resetplayer, fail, notvalue;
+    public static String success, zero, check, notfound, checkother, noperm, unknown, reload, reset, resetplayer, fail, notvalue, zone;
     private FileConfiguration config;
     private FileConfiguration rewards;
     private Plugin plugin;
@@ -58,6 +58,12 @@ public class ConfigManager {
             String victimmsg = rewards.getString(key+".victim-msg");
             keyMap.put(dkey,new Rewards(killercmd,victimcmd,killermsg,victimmsg));
         }
+
+        boolean customzone = config.getBoolean("custom-zone");
+
+        if (customzone) zone = config.getString("time-zone");
+        else zone = "";
+
         String prefix = lang.getString("prefix");
         success = ChatColor.translateAlternateColorCodes('&', prefix + lang.getString("success"));
         zero = ChatColor.translateAlternateColorCodes('&', prefix + lang.getString("zero"));

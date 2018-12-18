@@ -1,1 +1,3 @@
 max-uses: 20
+custom-zone: true
+time-zone: "UTC+8"

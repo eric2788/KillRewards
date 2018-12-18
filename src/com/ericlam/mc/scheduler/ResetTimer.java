@@ -10,6 +10,7 @@ import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.ZoneId;
 
 public class ResetTimer {
     private LocalDateTime firstcheck;
@@ -17,16 +18,17 @@ public class ResetTimer {
     public ResetTimer(){
         Plugin plugin = KillRewards.plugin;
         LocalTime resetTime = LocalTime.MIDNIGHT;
+        ZoneId zone = ConfigManager.zone.isEmpty() ? ZoneId.systemDefault() : ZoneId.of(ConfigManager.zone);
         synchronized (this){
             new BukkitRunnable(){
                 @Override
                 public void run() {
-                    LocalDateTime now = LocalDateTime.now();
+                    LocalDateTime now = LocalDateTime.now(zone);
                     if (firstcheck != null) {
 
                         long first = Timestamp.valueOf(firstcheck).getTime();
                         long second = Timestamp.valueOf(now).getTime();
-                        long reset = Timestamp.valueOf(LocalDateTime.of(LocalDate.now(),resetTime)).getTime();
+                        long reset = Timestamp.valueOf(LocalDateTime.of(LocalDate.now(zone), resetTime)).getTime();
 
                         if (reset >= first && reset <= second) {
                             try {
