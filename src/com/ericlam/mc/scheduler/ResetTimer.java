@@ -18,7 +18,7 @@ public class ResetTimer {
 
     public ResetTimer(){
         Plugin plugin = KillRewards.plugin;
-        LocalTime resetTime = LocalTime.MIDNIGHT;
+        LocalTime resetTime = ConfigManager.time == null ? LocalTime.MIDNIGHT : LocalTime.of(Integer.parseInt(ConfigManager.time[0]), Integer.parseInt(ConfigManager.time[1]));
         ZoneId zone = ConfigManager.zone.isEmpty() ? ZoneId.systemDefault() : ZoneId.of(ConfigManager.zone);
         synchronized (this){
             new BukkitRunnable(){
@@ -42,14 +42,14 @@ public class ResetTimer {
                     }
 
                     if (ConfigManager.debug) {
-                        plugin.getLogger().info("DEBUG: 第一檢測時間截點: " + (firstcheck == null ? now.toLocalTime().truncatedTo(ChronoUnit.MINUTES) : firstcheck.toLocalTime().truncatedTo(ChronoUnit.MINUTES)));
-                        plugin.getLogger().info("DEBUG: 第二檢測時間節點: " + now.toLocalTime().truncatedTo(ChronoUnit.MINUTES));
-                        plugin.getLogger().info("DEBUG: 重設檢測時間節點" + resetTime.truncatedTo(ChronoUnit.MINUTES));
+                        plugin.getLogger().info("DEBUG: 第一檢測時間截點: " + (firstcheck == null ? now.truncatedTo(ChronoUnit.MINUTES) : firstcheck.truncatedTo(ChronoUnit.MINUTES)));
+                        plugin.getLogger().info("DEBUG: 第二檢測時間節點: " + now.truncatedTo(ChronoUnit.MINUTES));
+                        plugin.getLogger().info("DEBUG: 重設檢測時間節點: " + resetTime.truncatedTo(ChronoUnit.MINUTES));
                     }
 
                     firstcheck = now;
                 }
-            }.runTaskTimerAsynchronously(plugin, 0L, 300 * 20L);
+            }.runTaskTimerAsynchronously(plugin, 0L, ConfigManager.interval * 20L);
         }
     }
 

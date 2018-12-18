@@ -16,13 +16,14 @@ import java.util.UUID;
 public class ConfigManager {
     public static String success, zero, check, notfound, checkother, noperm, unknown, reload, reset, resetplayer, fail, notvalue, zone;
     public static boolean debug;
+    public static int interval;
     private FileConfiguration config;
     private FileConfiguration rewards;
     private Plugin plugin;
     private File rewardFile;
     private File configFile;
     private File folder;
-    public static String[] help;
+    public static String[] help, time;
     private static ConfigManager configManager;
     private FileConfiguration lang;
 
@@ -66,6 +67,8 @@ public class ConfigManager {
         else zone = "";
 
         debug = config.getBoolean("debug-mode");
+        time = config.getString("reset-timer").split(":");
+        interval = config.getInt("check-interval");
 
         String prefix = lang.getString("prefix");
         success = ChatColor.translateAlternateColorCodes('&', prefix + lang.getString("success"));

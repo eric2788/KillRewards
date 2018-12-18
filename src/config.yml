@@ -2,3 +2,6 @@ max-uses: 20
 custom-zone: true
 time-zone: "UTC+8"
 debug-mode: true
+check-interval: 300
+#漏空則為 凌晨 0 時
+reset-timer: "00:00"
