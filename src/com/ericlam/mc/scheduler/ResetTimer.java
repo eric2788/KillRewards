@@ -11,6 +11,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.ZoneId;
+import java.time.temporal.ChronoUnit;
 
 public class ResetTimer {
     private LocalDateTime firstcheck;
@@ -38,8 +39,14 @@ public class ResetTimer {
                                 e.printStackTrace();
                             }
                         }
-
                     }
+
+                    if (ConfigManager.debug) {
+                        plugin.getLogger().info("DEBUG: 第一檢測時間截點: " + (firstcheck == null ? now.toLocalTime().truncatedTo(ChronoUnit.MINUTES) : firstcheck.toLocalTime().truncatedTo(ChronoUnit.MINUTES)));
+                        plugin.getLogger().info("DEBUG: 第二檢測時間節點: " + now.toLocalTime().truncatedTo(ChronoUnit.MINUTES));
+                        plugin.getLogger().info("DEBUG: 重設檢測時間節點" + resetTime.truncatedTo(ChronoUnit.MINUTES));
+                    }
+
                     firstcheck = now;
                 }
             }.runTaskTimerAsynchronously(plugin, 0L, 300 * 20L);
