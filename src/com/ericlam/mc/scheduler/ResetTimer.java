@@ -16,14 +16,13 @@ public class ResetTimer {
 
     public ResetTimer(){
         Plugin plugin = KillRewards.plugin;
-        LocalTime resetTime = LocalTime.NOON;
+        LocalTime resetTime = LocalTime.MIDNIGHT;
         synchronized (this){
             new BukkitRunnable(){
                 @Override
                 public void run() {
                     LocalDateTime now = LocalDateTime.now();
-                    if (firstcheck == null) firstcheck = now.plusMinutes(1);
-                    else{
+                    if (firstcheck != null) {
 
                         long first = Timestamp.valueOf(firstcheck).getTime();
                         long second = Timestamp.valueOf(now).getTime();
@@ -37,6 +36,7 @@ public class ResetTimer {
                             }
                         }
                     }
+                    firstcheck = now;
                 }
             }.runTaskTimerAsynchronously(plugin,0L,300L);
         }
