@@ -14,9 +14,10 @@ import java.util.List;
 import java.util.UUID;
 
 public class ConfigManager {
+    public static String success, zero, check, notfound, checkother, noperm, unknown, reload, reset, resetplayer, fail, notvalue;
     private FileConfiguration config;
     private FileConfiguration rewards;
-    public static String sucess, zero, check, notfound, checkother, noperm, unknown, reload, reset, resetplayer, fail, notvalue;
+    private Plugin plugin;
     private File rewardFile;
     private File configFile;
     private File folder;
@@ -33,7 +34,7 @@ public class ConfigManager {
     }
 
     private ConfigManager() throws IOException {
-        Plugin plugin = KillRewards.plugin;
+        plugin = KillRewards.plugin;
 
         rewardFile = new File(plugin.getDataFolder(), "rewards.yml");
         configFile = new File(plugin.getDataFolder(),"config.yml");
@@ -58,7 +59,7 @@ public class ConfigManager {
             keyMap.put(dkey,new Rewards(killercmd,victimcmd,killermsg,victimmsg));
         }
         String prefix = lang.getString("prefix");
-        sucess = ChatColor.translateAlternateColorCodes('&', prefix + lang.getString("success"));
+        success = ChatColor.translateAlternateColorCodes('&', prefix + lang.getString("success"));
         zero = ChatColor.translateAlternateColorCodes('&', prefix + lang.getString("zero"));
         check = ChatColor.translateAlternateColorCodes('&', prefix + lang.getString("check"));
         help = lang.getStringList("help").stream().map(text -> ChatColor.translateAlternateColorCodes('&', prefix + text)).toArray(String[]::new);
@@ -78,16 +79,19 @@ public class ConfigManager {
     }
 
     public void resetData() throws IOException {
-        for (UUID uuid : playerUse.keySet()) {
-            reset(uuid);
+        int maxuse = config.getInt("max-uses");
+        File[] data = new File(plugin.getDataFolder(), "PlayerData").listFiles();
+        if (data == null || data.length == 0) return;
+        for (File playerdata : data) {
+            if (!playerdata.exists()) continue;
+            FileConfiguration filedata = YamlConfiguration.loadConfiguration(playerdata);
+            filedata.set("max-uses", maxuse);
+            filedata.save(playerdata);
+            YamlConfiguration.loadConfiguration(playerdata);
         }
     }
 
     public void resetData(UUID uuid) throws IOException {
-        reset(uuid);
-    }
-
-    private void reset(UUID uuid) throws IOException {
         int maxuse = config.getInt("max-uses");
         File playerdata = new File(folder, uuid.toString() + ".yml");
         if (playerdata.exists()) {

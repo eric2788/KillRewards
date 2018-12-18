@@ -7,7 +7,7 @@ help:
   - "/kw set <玩家> <數量> - 設置玩家的剩餘次數"
   - "/kw reset <玩家> - 重設玩家資料"
   - "/kw reload - 重載插件"
-sucess: "操作成功"
+success: "操作成功"
 fail: "操作失敗"
 zero: "玩家剩餘次數已是 0, 無法減少"
 check: "你今天的剩餘次數為 <count>, 重設於 00:00"

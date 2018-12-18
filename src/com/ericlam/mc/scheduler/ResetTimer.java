@@ -31,14 +31,16 @@ public class ResetTimer {
                         if (reset >= first && reset <= second) {
                             try {
                                 ConfigManager.getInstance().resetData();
+                                plugin.getLogger().info("已重置所有玩家資料");
                             } catch (IOException e) {
                                 e.printStackTrace();
                             }
                         }
+
                     }
                     firstcheck = now;
                 }
-            }.runTaskTimerAsynchronously(plugin,0L,300L);
+            }.runTaskTimerAsynchronously(plugin, 0L, 300 * 20L);
         }
     }
 

@@ -46,6 +46,20 @@ public class KillRewardsCommand implements CommandExecutor {
                     cm.reloadData();
                     commandSender.sendMessage(ConfigManager.reload);
                     break;
+                case "reset":
+                    if (!commandSender.hasPermission("kw.admin")) {
+                        commandSender.sendMessage(ConfigManager.noperm);
+                        return false;
+                    }
+                    try {
+                        cm.resetData();
+                        commandSender.sendMessage(ConfigManager.reset);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                        commandSender.sendMessage(ConfigManager.fail);
+                        return false;
+                    }
+                    break;
                 default:
                     commandSender.sendMessage(ConfigManager.unknown);
                     break;
@@ -73,7 +87,7 @@ public class KillRewardsCommand implements CommandExecutor {
                 case "add":
                     try {
                         cm.addUses(target.getUniqueId(), 1);
-                        commandSender.sendMessage(ConfigManager.sucess);
+                        commandSender.sendMessage(ConfigManager.success);
                     } catch (IOException e) {
                         e.printStackTrace();
                         commandSender.sendMessage(ConfigManager.fail);
@@ -87,7 +101,7 @@ public class KillRewardsCommand implements CommandExecutor {
                     }
                     try {
                         cm.reduceUses(target.getUniqueId(), 1);
-                        commandSender.sendMessage(ConfigManager.sucess);
+                        commandSender.sendMessage(ConfigManager.success);
                     } catch (IOException e) {
                         e.printStackTrace();
                         commandSender.sendMessage(ConfigManager.fail);
@@ -97,7 +111,7 @@ public class KillRewardsCommand implements CommandExecutor {
                 case "reset":
                     try {
                         cm.resetData(target.getUniqueId());
-                        commandSender.sendMessage(ConfigManager.sucess);
+                        commandSender.sendMessage(ConfigManager.resetplayer.replace("<player>", target.getName()));
                     } catch (IOException e) {
                         e.printStackTrace();
                         commandSender.sendMessage(ConfigManager.fail);
@@ -124,7 +138,7 @@ public class KillRewardsCommand implements CommandExecutor {
             case "add":
                 try {
                     cm.addUses(target.getUniqueId(), count);
-                    commandSender.sendMessage(ConfigManager.sucess);
+                    commandSender.sendMessage(ConfigManager.success);
                 } catch (IOException e) {
                     e.printStackTrace();
                     commandSender.sendMessage(ConfigManager.fail);
@@ -138,7 +152,7 @@ public class KillRewardsCommand implements CommandExecutor {
                 }
                 try {
                     cm.reduceUses(target.getUniqueId(), count);
-                    commandSender.sendMessage(ConfigManager.sucess);
+                    commandSender.sendMessage(ConfigManager.success);
                 } catch (IOException e) {
                     e.printStackTrace();
                     commandSender.sendMessage(ConfigManager.fail);
@@ -148,7 +162,7 @@ public class KillRewardsCommand implements CommandExecutor {
             case "set":
                 try {
                     cm.setUses(target.getUniqueId(), count);
-                    commandSender.sendMessage(ConfigManager.sucess);
+                    commandSender.sendMessage(ConfigManager.success);
                 } catch (IOException e) {
                     e.printStackTrace();
                     commandSender.sendMessage(ConfigManager.fail);
