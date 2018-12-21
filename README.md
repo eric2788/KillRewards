@@ -3,4 +3,4 @@
 
 ## 版本: 1.12.2
 
-## [下載插件](https://www.mediafire.com/file/4boctrc84ajcuc0/KillRewards.jar/file)
+## [下載插件](http://festyy.com/wCJZPd)
