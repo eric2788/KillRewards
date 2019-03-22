@@ -11,4 +11,4 @@
 - 詳情請看 src/rewards.yml
 
 ### 下載
-[下載插件](http://festyy.com/wCJZPd) | [Mirror](http://www.mediafire.com/file/4boctrc84ajcuc0/KillRewards.jar/file)
+[下載插件](http://festyy.com/wCJZPd) | [Mirror](https://www.mediafire.com/file/r3y8mz0ffilstdn/KillRewards.jar/file)
