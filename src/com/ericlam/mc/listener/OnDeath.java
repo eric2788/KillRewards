@@ -40,8 +40,10 @@ public class OnDeath implements Listener {
         if (configManager.isUsed(killer.getUniqueId())) return;
         while (!selected) {
             double pert = new Random().nextFloat() * 100;
+            if (ConfigManager.debug) plugin.getLogger().info("隨機概率: " + Math.rint(pert));
             for (double rand : doubles) {
                 if (pert > rand) continue;
+                if (ConfigManager.debug) plugin.getLogger().info(rand + " 的機率獎勵被觸發");
                 Rewards rewards = keys.get(rand);
                 if (rewards.isVictimMSG())
                     victim.sendMessage(ChatColor.translateAlternateColorCodes('&', rewards.getVictimmsg().replace("<killer>", killer.getName()).replace("<victim>", victim.getName())));
